@@ -16,11 +16,30 @@ function mark_from_perimetr!(r::Robot)
    moves!(r,West)
    moves!(r,Sud)
 
+   mark_perimetr!(r)
+
    movements!(r,Nord, steps_down)
    movements!(r,Ost,steps_left)
    movements!(r,Sud,steps_up)
    # Робот - в исходном положении
 end
+
+function paint_till_border!(r::Robot, side::HorizonSide)
+    while isborder(r, side)==false
+        putmarker!(r)
+        move!(r, side)
+    end
+    
+end
+
+function mark_perimetr!(r::Robot)
+    for side in (Nord, Ost, Sud, West)
+        paint_till_border!(r, side)
+    end
+    
+
+end
+
 
 function snake!(r::Robot, side::HorizonSide)
     fl = false
@@ -37,6 +56,12 @@ function snake!(r::Robot, side::HorizonSide)
         side = invers(side)
         snake!(r,side)
     else
+        
+        while isborder(r, Ost)==true
+            move!(r, Sud)
+        end
+        move!(r, Nord)
+
         side = Ost #Ходим по кругу
         for way in (Nord, Ost, Sud, West)
             while isborder(r, side) == true && ismarker(r) == false
@@ -47,7 +72,6 @@ function snake!(r::Robot, side::HorizonSide)
             move!(r,side)
             side = HorizonSide(mod(Int(side) - 1,4))
         end
-        putmarker!(r)
+        
     end
 end
-

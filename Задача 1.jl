@@ -3,7 +3,7 @@ import HorizonSideRobots.move!
 
 r=Robot(animate=true)
 
- function mark_kross!(r::Robot)     #Основная функция 
+ function mark_plus!(r::Robot)     #Основная функция 
     for side in (Nord,West,Sud,Ost) #Идем во все стороны света
         num_steps=get_num_steps_putmarkers!(r,side) #Закрепление числа шагов
         movements!(r,invers(side),num_steps) #Возвращение в исходную
