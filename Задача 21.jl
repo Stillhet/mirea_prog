@@ -1,4 +1,8 @@
-function go_around(r, side)
+using HorizonSideRobots
+    import HorizonSideRobots.move!
+    r=Robot(animate=true)
+
+function go_around!(r::Robot, side::HorizenSide)
     counter_horisontal = 0
     counter_vertical = 0
     while(isborder(r, side))

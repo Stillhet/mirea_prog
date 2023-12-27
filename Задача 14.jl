@@ -1,4 +1,9 @@
-function mark_kross(r::Robot)
+using HorizonSideRobots
+import HorizonSideRobots.move!
+
+r=Robot(animate=true)
+
+function mark_kross!(r::Robot)
     for side in (Nord, West, Sud, Ost)
         num_steps = putmarkers_1!(r,side)
         movements!(r,invers(side), num_steps)
@@ -24,7 +29,7 @@ for _ in 1:num_steps
 end
 
 function move_if_possible!(r::Robot, direct_side::HorizonSide)::Bool
-    orthogonal_side = left(direct_side)
+    orthogonal_side = West(direct_side)
     reverse_side = invers(orthogonal_side)
     num_steps=0
     while isborder(r,direct_side) == true

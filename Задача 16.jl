@@ -1,15 +1,19 @@
-function mark_field(r::Robot)
+using HorizonSideRobots
+    import HorizonSideRobots.move!
+    r=Robot(animate=true)
+
+function mark_field!(r::Robot)
     side=Ost
     mark_row(r,side)
     while isborder(r,side)==false
         move!(r,Nord)
         side=invers(side)
-        mark_row(r,side)
+        mark_row!(r,side)
     end
 end
 
 
-function mark_row(r::Robot,side::HorizonSide)
+function mark_row!(r::Robot,side::HorizonSide)
     putmarker!(r)
     while move_if_possible!(r,side) == true
         putmarker!(r)
@@ -22,7 +26,7 @@ function move_if_possible!(r::Robot, direct_side::HorizonSide)::Bool
     num_steps=0
     while isborder(r,direct_side) == true
         if isborder(r, orthogonal_side) == false
-            move(r, orthogonal_side)
+            move!(r, orthogonal_side)
             num_steps += 1
         else
             break

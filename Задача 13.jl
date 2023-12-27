@@ -1,4 +1,9 @@
-function mark_kross_x(r::Robot)
+using HorizonSideRobots
+import HorizonSideRobots.move!
+
+r=Robot(animate=true)
+
+function mark_kross_x!(r::Robot)
     for side in ((Nord,Ost),(Sud,Ost),(Sud,West),(Nord,West))
         while (isborder(r,side[1])==false && isborder(r,side[2])==false)
             move!(r,side[1])
